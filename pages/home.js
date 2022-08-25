@@ -1,16 +1,17 @@
-import Image from 'next/image';
-import HeaderLinks from '../components/headerLinks';
+import { getProviders, signIn } from 'next-auth/react';
 
+import Image from 'next/image';
+import Head from 'next/head';
+
+import HeaderLinks from '../components/headerLinks';
 // mui
 import ExploreIcon from '@mui/icons-material/Explore';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import FingerprintIcon from '@mui/icons-material/Fingerprint';
 import CloudDoneIcon from '@mui/icons-material/CloudDone';
-
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
-import Head from 'next/head';
 
-function Home() {
+function Home({ providers }) {
   return (
     <div className="space-y-10">
       <Head>
@@ -37,14 +38,19 @@ function Home() {
             <HeaderLinks Icon={CloudDoneIcon} text="Cloud" />
           </div>
 
-          <div className="pl-4">
-            <button
-              className="text-blue-700 font-semibold
+          {Object.values(providers).map((prodiver) => (
+            <div key={prodiver.name}>
+              <div className="pl-4">
+                <button
+                  onClick={() => signIn(prodiver.id, { callbackUrl: '/' })}
+                  className="text-blue-700 font-semibold
             border-2 border-blue-400  px-5  py-1.5 rounded-full transition-all  hover:border-2  hover:border-blue-700"
-            >
-              Sign in
-            </button>
-          </div>
+                >
+                  Sign in
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       </header>
 
@@ -79,3 +85,8 @@ function Home() {
 }
 
 export default Home;
+
+export async function getServerSideProps(ctx) {
+  const providers = await getProviders();
+  return { props: { providers } };
+}
