@@ -1,5 +1,6 @@
 import { signOut } from 'next-auth/react';
 import Head from 'next/head';
+import Header from '../components/header';
 
 export default function Home() {
   return (
@@ -10,15 +11,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <button
-          onClick={() => {
-            signOut();
-          }}
-        >
-          Sign Out
-        </button>
-      </main>
+      <Header />
+      <button
+        onClick={() => {
+          signOut();
+        }}
+      >
+        Sign Out
+      </button>
+      <main className=""></main>
     </div>
   );
 }
