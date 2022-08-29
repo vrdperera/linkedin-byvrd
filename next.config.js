@@ -7,6 +7,7 @@ const nextConfig = {
       'rb.gy',
       'images.unsplash.com',
       'www.iconsdb.com',
+      'images.fastcompany.net',
     ],
   },
 };
