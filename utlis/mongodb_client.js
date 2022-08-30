@@ -42,6 +42,6 @@ export async function connectToDatabase() {
     throw new Error(err?.message ?? err.toString());
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
+    // await client.close();
   }
 }
