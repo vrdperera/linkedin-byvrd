@@ -10,6 +10,11 @@ let cachedDb = null;
 
 // database connection function
 export async function connectToDatabase() {
+  // Create a new MongoClient
+  const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
   {
     // check for database connection string and db name
     if (!uri || !dbName) {
@@ -18,17 +23,16 @@ export async function connectToDatabase() {
 
     // if have cached use it
     if (cachedClient && cachedDb) {
-      return { client: cachedClient, db: cachedDb };
+      return { cachedClient, cachedDb };
     }
   }
 
   try {
-    const client = await MongoClient.connect(uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-
+    // Connect the client to the server
+    await client.connect();
+    // Establish and verify connection
     const db = await client.db(dbName);
+    console.log('Connected successfully to server');
 
     cachedClient = client;
     cachedDb = db;
