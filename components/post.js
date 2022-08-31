@@ -16,7 +16,7 @@ import ReplyRoundedIcon from '@mui/icons-material/ReplyRounded';
 import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
 import truncate from '../utlis/trancate';
 
-function Post({ post, modalPost }) {
+export default function Post({ post, modalPost }) {
   const { data: session } = useSession();
   const [showInput, setShowInput] = useState(false);
   const [liked, setLiked] = useState(false);
@@ -130,4 +130,4 @@ function Post({ post, modalPost }) {
   );
 }
 
-export default Post;
+
